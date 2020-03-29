@@ -57,7 +57,7 @@ public class Game {
                     gameOver = true;
                 } else {
                     snake.move(nextCell);
-                    if (nextCell.getCellType() == CellType.FOOD) {
+                    if (nextCell.celltype == CellType.FOOD) {
                         snake.grow();
                         board.generateFood();
                     }
@@ -66,10 +66,10 @@ public class Game {
         }
     }
 
-    private Cell getNextCell(Cell currentPosition) {
+    public Cell getNextCell(Cell currentPosition) {
         System.out.println("Going to find next cell");
-        int row = currentPosition.getRow();
-        int col = currentPosition.getCol();
+        int row = currentPosition.row;
+        int col = currentPosition.col;
 
         if (direction == DIRECTION_RIGHT) {
             col++;
@@ -133,6 +133,15 @@ public class Game {
 
         // We need to update the game at regular intervals,
         // and accept user input from the Keyboard.
+        for (int i = 0; i < 5; i++) { 
+            if (i == 2) 
+                newGame.board.generateFood(); 
+            newGame.update(); 
+            if (i == 3) 
+                newGame.direction = DIRECTION_RIGHT; 
+            if (newGame.gameOver == true) 
+                break; 
+        } 
 
     }
 }
