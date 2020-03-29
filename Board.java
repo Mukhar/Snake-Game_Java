@@ -20,6 +20,9 @@ public class Board {
             }    
         }
     }
+    public Cell[][] getCells(){ 
+        return board; 
+    } 
 
     public void generateFood(){
         //generating food randomly
