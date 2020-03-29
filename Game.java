@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 public class Game {
 
     public static final int DIRECTION_NONE = 0, DIRECTION_RIGHT = 1, DIRECTION_LEFT = -1, DIRECTION_UP = 2,
@@ -87,11 +89,45 @@ public class Game {
     public static void main(String[] args) {
 
         System.out.println("Going to start game");
-
-        Cell initPos = new Cell(0, 0);
+        // snake initial position is not origin
+        Cell initPos = new Cell(1, 1);
         Snake initSnake = new Snake(initPos);
         Board board = new Board(10, 10);
         Game newGame = new Game(initSnake, board);
+
+        //Creating the Frame
+        JFrame frame = new JFrame("Snake");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(700, 500);
+
+        //Creating the MenuBar and adding components
+        JMenuBar mb = new JMenuBar();
+        JMenu file_option = new JMenu("FILE");
+        mb.add(file_option);
+        JMenuItem m11 = new JMenuItem("New Game");
+        JMenuItem m22 = new JMenuItem("Save as");
+        file_option.add(m11);
+        file_option.add(m22);
+
+        //Creating the panel at bottom and adding components
+        JPanel panel = new JPanel(); // the panel is not visible in output
+        JLabel label = new JLabel("Welcome Player");
+        JButton restart_button = new JButton("Restart");
+        panel.add(label); // Components Added using Flow Layout
+        panel.add(restart_button);
+
+        // GUI area
+        JPanel gui = new JPanel(new GridLayout(100,140,4,4));
+        gui.setBackground(Color.BLACK);
+
+        //Adding Components to the frame.
+        frame.getContentPane().add(BorderLayout.SOUTH, panel);
+        frame.getContentPane().add(BorderLayout.NORTH, mb);
+        frame.getContentPane().add(BorderLayout.CENTER, gui);
+        frame.pack();
+        frame.setVisible(true);
+
+
         newGame.gameOver = false;
         newGame.direction = DIRECTION_RIGHT;
 
