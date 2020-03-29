@@ -89,25 +89,28 @@ public class Game {
     public static void main(String[] args) {
 
         System.out.println("Going to start game");
-        // snake initial position is not origin
-        Cell initPos = new Cell(1, 1);
+        // snake initial position is origin
+        Cell initPos = new Cell(0, 0);
         Snake initSnake = new Snake(initPos);
-        Board board = new Board(10, 10);
+        Board board = new Board(100, 100);
         Game newGame = new Game(initSnake, board);
+
+        newGame.gameOver = false;
+        newGame.direction = DIRECTION_RIGHT;
 
         //Creating the Frame
         JFrame frame = new JFrame("Snake");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 500);
 
-        //Creating the MenuBar and adding components
-        JMenuBar mb = new JMenuBar();
-        JMenu file_option = new JMenu("FILE");
-        mb.add(file_option);
-        JMenuItem m11 = new JMenuItem("New Game");
-        JMenuItem m22 = new JMenuItem("Save as");
-        file_option.add(m11);
-        file_option.add(m22);
+        // //Creating the MenuBar and adding components
+        // JMenuBar mb = new JMenuBar();
+        // JMenu file_option = new JMenu("FILE");
+        // mb.add(file_option);
+        // JMenuItem m11 = new JMenuItem("New Game");
+        // JMenuItem m22 = new JMenuItem("Save as");
+        // file_option.add(m11);
+        // file_option.add(m22);
 
         //Creating the panel at bottom and adding components
         JPanel panel = new JPanel(); // the panel is not visible in output
@@ -117,19 +120,16 @@ public class Game {
         panel.add(restart_button);
 
         // GUI area
-        JPanel gui = new JPanel(new GridLayout(10,10,2,2));
+        JPanel gui = new JPanel(new GridLayout(100,200,4,4));
         gui.setBackground(Color.BLACK);
 
-        //Adding Components to the frame.
+
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
-        frame.getContentPane().add(BorderLayout.NORTH, mb);
+        // frame.getContentPane().add(BorderLayout.NORTH, mb);
         frame.getContentPane().add(BorderLayout.CENTER, gui);
         frame.pack();
         frame.setVisible(true);
 
-
-        newGame.gameOver = false;
-        newGame.direction = DIRECTION_RIGHT;
 
         // We need to update the game at regular intervals,
         // and accept user input from the Keyboard.
