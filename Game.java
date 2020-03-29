@@ -117,7 +117,7 @@ public class Game {
         panel.add(restart_button);
 
         // GUI area
-        JPanel gui = new JPanel(new GridLayout(100,140,4,4));
+        JPanel gui = new JPanel(new GridLayout(10,10,2,2));
         gui.setBackground(Color.BLACK);
 
         //Adding Components to the frame.
