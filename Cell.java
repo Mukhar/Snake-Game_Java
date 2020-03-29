@@ -1,5 +1,3 @@
-
-
 public class Cell{
     public int row,col;
     public CellType celltype;
