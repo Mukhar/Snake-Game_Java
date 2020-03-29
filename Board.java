@@ -1,5 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
 public class Board {
     public final int total_row,total_col;
     public Cell[][] board;
@@ -14,10 +12,15 @@ public class Board {
         this.total_row=row_count;
 
         this.board=new Cell[row_count][col_count];
-        for (int r=0;r<this.total_row;r++){
-            for (int c=0;r<this.total_col;c++){
-                this.board[r][c]=new Cell(r,c);
-            }    
+        try{
+            for (int r=0;r<row_count;r++){
+                for (int c=0;r<col_count;c++){
+                    this.board[r][c]=new Cell(r,c);
+                }    
+            }
+        }
+        catch(Exception e){
+            System.out.println(e);
         }
     }
     public Cell[][] getCells(){ 
