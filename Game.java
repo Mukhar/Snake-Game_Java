@@ -1,6 +1,12 @@
 import javax.swing.*;
+import javax.swing.plaf.DimensionUIResource;
+
 import java.awt.*;
-public class Game {
+public class Game extends Canvas implements Runnable{
+
+    public static final int w=320;
+    public static final int h=w/(12*9);
+    public static final int scale=2;
 
     public static final int DIRECTION_NONE = 0, DIRECTION_RIGHT = 1, DIRECTION_LEFT = -1, DIRECTION_UP = 2,
             DIRECTION_DOWN = -2;
@@ -8,7 +14,32 @@ public class Game {
     private Board board;
     private int direction;
     private boolean gameOver;
+    private boolean running=false;
 
+    private Thread thread;
+
+    private synchronized void start(){
+        if(running)
+            return;
+        running=true;
+        thread=new Thread(this);
+        thread.start();
+    }
+    private synchronized void stop() {
+        if(!running)
+            return;
+        running=false;
+        try{
+            thread.join();
+        }
+        catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        
+
+        System.exit(1);
+        
+    }
     public Game(Snake snake, Board board) {
         this.snake = snake;
         this.board = board;
@@ -95,40 +126,27 @@ public class Game {
         Board board = new Board(100, 100);
         Game newGame = new Game(initSnake, board);
 
+        newGame.setPreferredSize(new Dimension(w*scale, h*scale));
+        newGame.setMinimumSize(new Dimension(w*scale, h*scale));
+
         newGame.gameOver = false;
         newGame.direction = DIRECTION_RIGHT;
 
         //Creating the Frame
         JFrame frame = new JFrame("Snake");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 500);
-
-        // //Creating the MenuBar and adding components
-        // JMenuBar mb = new JMenuBar();
-        // JMenu file_option = new JMenu("FILE");
-        // mb.add(file_option);
-        // JMenuItem m11 = new JMenuItem("New Game");
-        // JMenuItem m22 = new JMenuItem("Save as");
-        // file_option.add(m11);
-        // file_option.add(m22);
-
-        //Creating the panel at bottom and adding components
-        JPanel panel = new JPanel(); // the panel is not visible in output
-        JLabel label = new JLabel("Welcome Player");
-        JButton restart_button = new JButton("Restart");
-        panel.add(label); // Components Added using Flow Layout
-        panel.add(restart_button);
 
         // GUI area
         JPanel gui = new JPanel(new GridLayout(100,200,4,4));
         gui.setBackground(Color.BLACK);
 
 
-        frame.getContentPane().add(BorderLayout.SOUTH, panel);
-        // frame.getContentPane().add(BorderLayout.NORTH, mb);
         frame.getContentPane().add(BorderLayout.CENTER, gui);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        newGame.start();
 
 
         // We need to update the game at regular intervals,
@@ -143,5 +161,15 @@ public class Game {
                 break; 
         } 
 
+    }
+
+    @Override
+    public void run() {
+        // game loop
+        while(running){
+
+            System.out.println("working");
+        }
+        stop();
     }
 }
