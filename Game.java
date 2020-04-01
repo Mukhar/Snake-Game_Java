@@ -2,11 +2,12 @@ import javax.swing.*;
 import javax.swing.plaf.DimensionUIResource;
 
 import java.awt.*;
-public class Game extends Canvas implements Runnable{
 
-    public static final int w=320;
-    public static final int h=w/(12*9);
-    public static final int scale=2;
+public class Game extends Canvas implements Runnable {
+
+    public static final int w = 320;
+    public static final int h = w / (12 * 9);
+    public static final int scale = 2;
 
     public static final int DIRECTION_NONE = 0, DIRECTION_RIGHT = 1, DIRECTION_LEFT = -1, DIRECTION_UP = 2,
             DIRECTION_DOWN = -2;
@@ -14,32 +15,32 @@ public class Game extends Canvas implements Runnable{
     private Board board;
     private int direction;
     private boolean gameOver;
-    private boolean running=false;
+    private boolean running = false;
 
     private Thread thread;
 
-    private synchronized void start(){
-        if(running)
+    private synchronized void start() {
+        if (running)
             return;
-        running=true;
-        thread=new Thread(this);
+        running = true;
+        thread = new Thread(this);
         thread.start();
     }
+
     private synchronized void stop() {
-        if(!running)
+        if (!running)
             return;
-        running=false;
-        try{
+        running = false;
+        try {
             thread.join();
-        }
-        catch(InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        
 
         System.exit(1);
-        
+
     }
+
     public Game(Snake snake, Board board) {
         this.snake = snake;
         this.board = board;
@@ -126,20 +127,19 @@ public class Game extends Canvas implements Runnable{
         Board board = new Board(100, 100);
         Game newGame = new Game(initSnake, board);
 
-        newGame.setPreferredSize(new Dimension(w*scale, h*scale));
-        newGame.setMinimumSize(new Dimension(w*scale, h*scale));
+        newGame.setPreferredSize(new Dimension(w * scale, h * scale));
+        newGame.setMinimumSize(new Dimension(w * scale, h * scale));
 
         newGame.gameOver = false;
         newGame.direction = DIRECTION_RIGHT;
 
-        //Creating the Frame
+        // Creating the Frame
         JFrame frame = new JFrame("Snake");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // GUI area
-        JPanel gui = new JPanel(new GridLayout(100,200,4,4));
+        JPanel gui = new JPanel(new GridLayout(100, 200, 4, 4));
         gui.setBackground(Color.BLACK);
-
 
         frame.getContentPane().add(BorderLayout.CENTER, gui);
         frame.pack();
@@ -148,27 +148,26 @@ public class Game extends Canvas implements Runnable{
 
         newGame.start();
 
-
         // We need to update the game at regular intervals,
         // and accept user input from the Keyboard.
-        for (int i = 0; i < 5; i++) { 
-            if (i == 2) 
-                newGame.board.generateFood(); 
-            newGame.update(); 
-            if (i == 3) 
-                newGame.direction = DIRECTION_RIGHT; 
-            if (newGame.gameOver == true) 
-                break; 
-        } 
+        for (int i = 0; i < 5; i++) {
+            if (i == 2)
+                newGame.board.generateFood();
+            newGame.update();
+            if (i == 3)
+                newGame.direction = DIRECTION_RIGHT;
+            if (newGame.gameOver == true)
+                break;
+        }
 
     }
 
     @Override
     public void run() {
         // game loop
-        while(running){
+        while (running) {
 
-            System.out.println("working");
+            // System.out.println("working");
         }
         stop();
     }

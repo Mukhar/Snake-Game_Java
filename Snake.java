@@ -27,6 +27,7 @@ public class Snake {
         System.out.println("Going to check for Crash");
         for (Cell cell : snakePartList) {
             if (cell == nextCell) {
+                System.out.println( "crashes");
                 return true;
             }
         }
