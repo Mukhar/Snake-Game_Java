@@ -123,8 +123,8 @@ public class Game extends Canvas implements Runnable {
         System.out.println("Going to start game");
         // snake initial position is origin
         Cell initPos = new Cell(0, 0);
-        Snake initSnake = new Snake(initPos);
         Board board = new Board(100, 100);
+        Snake initSnake = new Snake(initPos);
         Game newGame = new Game(initSnake, board);
 
         newGame.setPreferredSize(new Dimension(w * scale, h * scale));
