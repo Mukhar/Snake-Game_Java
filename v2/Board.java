@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import java.io.*;
 
 public class Board extends JPanel implements ActionListener {
 
@@ -58,13 +59,18 @@ public class Board extends JPanel implements ActionListener {
 
     private void loadImages() {
 
-        ImageIcon iid = new ImageIcon("resources/body.png");
+        File f = new File("Documents"); 
+        String absolute = f.getAbsolutePath();
+        absolute+="\\GitHub\\Snake-Game_Java\\v2\\resources\\";
+        System.out.println(absolute);
+  
+        ImageIcon iid = new ImageIcon(absolute+"body.png");
         ball = iid.getImage();
 
-        ImageIcon iia = new ImageIcon("resources/apple.png");
+        ImageIcon iia = new ImageIcon(absolute+"apple.png");
         apple = iia.getImage();
 
-        ImageIcon iih = new ImageIcon("resources/head.png");
+        ImageIcon iih = new ImageIcon(absolute+"head.png");
         head = iih.getImage();
     }
 
