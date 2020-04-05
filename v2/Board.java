@@ -62,7 +62,7 @@ public class Board extends JPanel implements ActionListener {
         File f = new File("Documents"); 
         String absolute = f.getAbsolutePath();
         absolute+="\\GitHub\\Snake-Game_Java\\v2\\resources\\";
-        System.out.println(absolute);
+        // System.out.println(absolute);
   
         ImageIcon iid = new ImageIcon(absolute+"body.png");
         ball = iid.getImage();
