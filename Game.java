@@ -138,7 +138,7 @@ public class Game extends Canvas implements Runnable {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // GUI area
-        JPanel gui = new JPanel(new GridLayout(100, 200, 4, 4));
+        JPanel gui = new JPanel(new GridLayout(100, 400, 4, 4));
         gui.setBackground(Color.BLACK);
 
         frame.getContentPane().add(BorderLayout.CENTER, gui);
